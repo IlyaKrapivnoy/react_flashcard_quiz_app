@@ -19,8 +19,24 @@ function App() {
   })
 
   useEffect(() => {
+    
+  }, [])
+
+  function decodeString(str) {  // turn all weird characters into norm one
+    const textArea = document.createElement('textarea')
+    textArea.innerHTML = str
+    return textArea.value
+  }
+
+  function handleSubmit(e) {
+    e.preventDefault()
     axios
-      .get('https://opentdb.com/api.php?amount=10')
+      .get('https://opentdb.com/api.php', {
+        params: {
+          amount: amountEl.current.value,
+          category: categoryEl.current.value
+        }
+      })
       .then(res => {
         setFlashcards(res.data.results.map((questionItem, index) => {
           const answer = decodeString(questionItem.correct_answer)
@@ -36,16 +52,6 @@ function App() {
         }))
         console.log("HAHAH", res.data)
       })
-  }, [])
-
-  function decodeString(str) {  // turn all weird characters into norm one
-    const textArea = document.createElement('textarea')
-    textArea.innerHTML = str
-    return textArea.value
-  }
-
-  function handleSubmit(e) {
-    e.preventDefault()
   }
 
   return (
@@ -64,6 +70,9 @@ function App() {
         <div className="form-group">
           <label htmlFor="amount">Number of Questions</label>
           <input type="number" id="amount" min="1" step="1" defaultValue={10} ref={amountEl} />
+        </div>
+        <div className="form-group">
+          <button className="btn">Generate</button>
         </div>
       </form>
       <div className="container">
