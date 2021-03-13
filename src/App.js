@@ -5,6 +5,7 @@ import axios from 'axios'
 
 function App() {
   const [flashcards, setFlashcards] = useState(SAMPLE_FLASHCARDS)
+  const [categories, setCategories] = useState([])
 
   const categoryEl = useRef()
 
@@ -12,7 +13,7 @@ function App() {
     axios
       .get('https://opentdb.com/api_category.php')
       .then(res => {
-        console.log("HM", res.data)
+        setCategories(res.data.trivia_categories)
       })
   })
 
@@ -52,7 +53,11 @@ function App() {
         <div className="form-group">
           <label htmlFor="category">Category</label>
           <select id="category" ref={categoryEl}>
-
+            {categories.map(category => {
+              return <option value={category.id} key={category.id}>
+                {category.name}
+              </option>
+            })}
           </select>
         </div>
       </form>
