@@ -8,6 +8,7 @@ function App() {
   const [categories, setCategories] = useState([])
 
   const categoryEl = useRef()
+  const amountEl = useRef()
 
   useEffect(() => {
     axios
@@ -59,6 +60,10 @@ function App() {
               </option>
             })}
           </select>
+        </div>
+        <div className="form-group">
+          <label htmlFor="amount">Number of Questions</label>
+          <input type="number" id="amount" min="1" step="1" defaultValue={10} ref={amountEl} />
         </div>
       </form>
       <div className="container">
