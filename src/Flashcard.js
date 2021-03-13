@@ -16,8 +16,7 @@ const Flashcard = ({ flashcard }) => {
                     })}
                 </div>
             </div>
-            <div className="back">{ flashcard.answer }</div>
-            {flip ? flashcard.answer : flashcard.question} 
+            <div className="back">{ flashcard.answer }</div> 
             {/* if the flip is true we're going return the answer, and if it's false we're going return the question  */}
         </div>
     )
